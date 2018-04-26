@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xu.dao.AccountDao">
+    <select id="findAccountById" parameterType="int" resultType="com.xu.po.Account">
+        select * from account where id=#{id}
+    </select>
+
+    <select id="findAccountByName" parameterType="String" resultType="com.xu.po.Account">
+        SELECT *from account where username like '%${value}%'
+    </select>
+
+    <insert id="insertAccount" parameterType="com.xu.po.Account">
+        insert into account(username, balance) values (#{username},#{balance})
+    </insert>
+    <delete id="deleteAccount" parameterType="java.lang.Integer">
+        delete from account where id=#{id}
+    </delete>
+    <update id="updateAccount" parameterType="com.xu.po.Account">
+        update account set balance=#{balance} where id=#{id}
+    </update>
+
+    <select id="findAccountList" parameterType="com.xu.vo.AccountVo" resultType="com.xu.po.Account">
+        select * from account where  account.balance=#{account.balance} like '%${account.username}%'
+    </select>
+</mapper>
